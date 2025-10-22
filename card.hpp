@@ -3,10 +3,19 @@
 #define CARD_HPP
 
 #include "ui.hpp"
+#include "helper.hpp"
+
 
 /// Here be:
 
 struct Card;
-struct Card_Type;
+enum class Card_Type;
+
+
+enum class Card_Type
+{
+
+};
+
 
 #endif /// CARD_HPP

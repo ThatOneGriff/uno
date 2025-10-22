@@ -14,7 +14,7 @@
 
 int main()
 {
-    std::cout << GREEN << "This is the start of this project.";
+    std::cout << GREEN << "This is the start of this project. " << WHITE << randint(1,2);
 
     return 0;
 }
