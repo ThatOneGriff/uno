@@ -6,20 +6,19 @@
 #include <string>    /// `tc()` returning `std::string`
 #include <windows.h> /// (True) coloring
 
-
 /// Here be:
 
 enum class Color;
-std::string tc(const int text_color);
+std::string tc(Color text_color);
 
 
 /// Color insertion into `cout`.
 /// - Example: `cout << GREEN << "Hi!";
-#define RED     tc(int(Color::Red))
-#define YELLOW  tc(int(Color::Yellow))
-#define GREEN   tc(int(Color::Green))
-#define BLUE    tc(int(Color::Blue))
-#define WHITE   tc(int(Color::White))
+#define RED     tc(Color::Red)
+#define YELLOW  tc(Color::Yellow)
+#define GREEN   tc(Color::Green)
+#define BLUE    tc(Color::Blue)
+#define WHITE   tc(Color::White)
 
 
 enum class Color
@@ -33,9 +32,9 @@ enum class Color
 };
 
 
-std::string tc(const int text_color)
+std::string tc(Color text_color)
 {
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text_color);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int)text_color);
     return std::string(); /// for insertion into `cout`
 }
 

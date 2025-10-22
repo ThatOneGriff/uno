@@ -1,8 +1,11 @@
 #include <iostream>
+#include <windows.h>
 
-#include "card.hpp"
-#include "character.hpp"
-#include "ui.hpp"
+#include "components/card.hpp"
+#include "components/character.hpp"
+#include "components/stack.hpp"
+
+#include "helpers/ui.hpp"
 
 /*
 = TODOs:
@@ -14,7 +17,7 @@
 
 int main()
 {
-    std::cout << GREEN << "This is the start of this project. " << WHITE << randint(1,2);
+    std::cout << GREEN << "This is the start of this project. " << WHITE;
 
     return 0;
 }
