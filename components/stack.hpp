@@ -9,27 +9,31 @@
 
 /// Here be:
 
-std::vector<Card> _init_stack();
-
-const unsigned int TOTAL_CARDS = 108;
-const std::vector<Card> INITIAL_STACK = _init_stack();
+std::vector<Card*>      _init_stack();
+const std::vector<Card*> INITIAL_STACK = _init_stack();
 
 
 /// Used for initializing `ORIGINAL_STACK`, unshuffled. Should not be used otherwise.
-std::vector<Card> _init_stack()
+std::vector<Card*> _init_stack()
 {
-    std::vector<Card> result;
+    std::vector<Card*> result;
     result.reserve(TOTAL_CARDS);
     
-    /// '0' (x4). I was surprised.
+    /// "0" (x4). I was surprised.
     for (unsigned int j = 0; j < 4; j++)
-        result.push_back(Card('0', COLORS_RAINBOW_SORTED[j]));
+    {
+        Card* card = new Card('0', COLORS_RAINBOW_SORTED[j]);
+        result.push_back(card);
+    }
     
     /// Regular numbers (x8)
     for (char type = '1'; type <= '9'; type++)
     {
         for (unsigned int j = 0; j < 8; j++)
-            result.push_back(Card(type, COLORS_RAINBOW_SORTED[j/2])); /// So that colors line up
+        {
+            Card* card = new Card(type, COLORS_RAINBOW_SORTED[j/2]); /// `j/2` so that the colors line up
+            result.push_back(card);
+        }
     }
 
     /// Special cards (x8)
@@ -38,12 +42,18 @@ std::vector<Card> _init_stack()
     {
         const char type = special_cards_x8[i];
         for (unsigned int j = 0; j < 8; j++)
-            result.push_back(Card(type, COLORS_RAINBOW_SORTED[j/2])); /// So that colors line up
+        {
+            Card* card = new Card(type, COLORS_RAINBOW_SORTED[j/2]); /// `j/2` so that the colors line up
+            result.push_back(card);
+        }
     }
 
-    /// +4 (x4)
+    /// "+4" (x4)
     for (unsigned int j = 0; j < 4; j++)
-        result.push_back(Card(PLUS_4, COLORS_RAINBOW_SORTED[j]));
+    {
+        Card* card = new Card(PLUS_4, COLORS_RAINBOW_SORTED[j]);
+        result.push_back(card);
+    }
     
     return result;
 }

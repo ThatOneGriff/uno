@@ -8,6 +8,7 @@
 #include "../helpers/ui.hpp"
 #include "../helpers/helpers.hpp"
 
+const unsigned int TOTAL_CARDS = 108;
 const char PLUS_2 = '+'+2, PLUS_4 = '+'+4; /// Only adequate way of assigning "+4"/"+2" to a char.
 const std::unordered_map<char, std::string> CARD_TYPE_FULL_NAMES =
 {
@@ -76,7 +77,7 @@ struct Card
 bool can_stack(const Card& card1, const Card& card2)
 {
     if (card1.type == 'A' && card2.type == 'A') return true; /// "Any" stacks on "Any"
-    if (in(card1.type, {PLUS_2, PLUS_4}) && in(card1.type, {PLUS_2, PLUS_4})) return true; /// "+" stack on "+"
+    if (in(card1.type, {PLUS_2, PLUS_4}) && in(card1.type, {PLUS_2, PLUS_4})) return true; /// "+" cards stack on "+" cards
     return card1.type  == card2.type
         || card1.color == card2.color;
 }
