@@ -1,8 +1,7 @@
 #pragma once
-#ifndef HELPER_HPP
-#define HELPER_HPP
+#ifndef RANDOM_HPP
+#define RANDOM_HPP
 
-#include <iostream>
 #include <time.h> /// seeding random
 #include <vector>
 
@@ -12,10 +11,7 @@ unsigned int randint(const unsigned int min, const unsigned int max, unsigned in
 unsigned int randint(const unsigned int max, unsigned int exclusion = UINT_MAX);
 template<class T>
 std::vector<T> shuffled(const std::vector<T>& target);
-template<class T>
-void output(const std::vector<T>& target);
-template<class T>
-bool in(const T target, const std::vector<T> values);
+
 
 
 unsigned int _rand_seed = time(NULL);
@@ -52,7 +48,7 @@ unsigned int randint(const unsigned int min, const unsigned int max, unsigned in
 }
 
 /// Random number [0, max].
-unsigned int randint(const unsigned int max, const int exclusion/* = UINT_MAX*/)
+unsigned int randint(const unsigned int max, const unsigned int exclusion/* = UINT_MAX*/)
 {
     return randint(0, max, exclusion);
 }
@@ -78,25 +74,4 @@ std::vector<T> shuffled(const std::vector<T>& target)
 }
 
 
-template<class T>
-void output(const std::vector<T>& target)
-{
-    for (unsigned int i = 0; i < target.size(); i++)
-        std::cout << target[i] << ' ';
-    std::cout << '\n';
-}
-
-
-template<class T>
-bool in(const T target, const std::vector<T> values)
-{
-    for (const T : values)
-    {
-        if (T == target)
-            return true;
-    }
-    return false;
-}
-
-
-#endif /// HELPER_HPP
+#endif /// RANDOM_HPP

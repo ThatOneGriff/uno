@@ -6,7 +6,7 @@
 #include <unordered_map>
 
 #include "../helpers/ui.hpp"
-#include "../helpers/helper.hpp"
+#include "../helpers/helpers.hpp"
 
 const char PLUS_2 = '+'+2, PLUS_4 = '+'+4; /// Only adequate way of assigning "+4"/"+2" to a char.
 const std::unordered_map<char, std::string> CARD_TYPE_FULL_NAMES =
