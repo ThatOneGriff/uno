@@ -14,6 +14,8 @@ template<class T>
 std::vector<T> shuffled(const std::vector<T>& target);
 template<class T>
 void output(const std::vector<T>& target);
+template<class T>
+bool in(const T target, const std::vector<T> values);
 
 
 unsigned int _rand_seed = time(NULL);
@@ -82,6 +84,18 @@ void output(const std::vector<T>& target)
     for (unsigned int i = 0; i < target.size(); i++)
         std::cout << target[i] << ' ';
     std::cout << '\n';
+}
+
+
+template<class T>
+bool in(const T target, const std::vector<T> values)
+{
+    for (const T : values)
+    {
+        if (T == target)
+            return true;
+    }
+    return false;
 }
 
 
