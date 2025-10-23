@@ -21,9 +21,29 @@ std::vector<Card> _init_stack()
     std::vector<Card> result;
     result.reserve(TOTAL_CARDS);
     
-    /// There are, surprisingly, 4 '0's instead of 8.
+    /// '0' (x4). I was surprised.
+    for (unsigned int j = 0; j < 4; j++)
+        result.push_back(Card('0', COLORS_RAINBOW_SORTED[j]));
+    
+    /// Regular numbers (x8)
+    for (char type = '1'; type <= '9'; type++)
+    {
+        for (unsigned int j = 0; j < 8; j++)
+            result.push_back(Card(type, COLORS_RAINBOW_SORTED[j/2])); /// So that colors line up
+    }
+
+    /// Special cards (x8)
+    const char special_cards_x8[4] = {'A', 'B', 'R', PLUS_2};
     for (int i = 0; i < 4; i++)
-        result.push_back(Card('0', COLORS_RAINBOW_SORTED[i]));
+    {
+        const char type = special_cards_x8[i];
+        for (unsigned int j = 0; j < 8; j++)
+            result.push_back(Card(type, COLORS_RAINBOW_SORTED[j/2])); /// So that colors line up
+    }
+
+    /// +4 (x4)
+    for (unsigned int j = 0; j < 4; j++)
+        result.push_back(Card(PLUS_4, COLORS_RAINBOW_SORTED[j]));
     
     return result;
 }

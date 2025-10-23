@@ -13,7 +13,7 @@ const std::unordered_map<char, std::string> CARD_TYPE_FULL_NAMES =
 {
     {'0', "0"}, {'1', "1"}, {'2', "2"}, {'3', "3"}, {'4', "4"},
     {'5', "5"}, {'6', "6"}, {'7', "7"}, {'8', "8"}, {'9', "9"},
-    {'A', "Any"}, {'R', "Reverse"}, {'B', "Block"}, 
+    {'A', "Any"}, {'B', "Block"}, {'R', "Reverse"},
     {PLUS_2, "+2"}, {PLUS_4, "+4"}
 };
 
@@ -25,8 +25,17 @@ bool can_stack(const Card& card1, const Card& card2);
 
 struct Card
 {
-    const char type;
-    const Color color;
+    char type;
+    Color color;
+
+    /// For compiler.
+    Card()
+    {}
+
+    /// Copy ctor.
+    Card(const Card& to_copy)
+    : type(to_copy.type), color(to_copy.color)
+    {}
 
     Card(const char _type, const Color _color)
     : type(_type), color(_color)
@@ -54,14 +63,16 @@ struct Card
             && color == to_compare.color;
     }
     
-    //operator=(const Card& to_set_as)
-    //{
-    //    type  = to_set_as.type;
-    //    color = to_set_as.color;
-    //}
+    Card& operator=(const Card& to_set_as)
+    {
+        type  = to_set_as.type;
+        color = to_set_as.color;
+        return *this;
+    }
 };
 
 
+/// TODO
 bool can_stack(const Card& card1, const Card& card2)
 {
     return card1.type  == card2.type

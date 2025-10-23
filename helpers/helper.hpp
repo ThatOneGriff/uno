@@ -11,7 +11,7 @@
 unsigned int randint(const unsigned int min, const unsigned int max, unsigned int exclusion = UINT_MAX);
 unsigned int randint(const unsigned int max, unsigned int exclusion = UINT_MAX);
 template<class T>
-void shuffle(std::vector<T>& target);
+std::vector<T> shuffled(const std::vector<T>& target);
 template<class T>
 void output(const std::vector<T>& target);
 
@@ -57,19 +57,22 @@ unsigned int randint(const unsigned int max, const int exclusion/* = UINT_MAX*/)
 
 
 template<class T>
-void shuffle(std::vector<T>& target)
+std::vector<T> shuffled(const std::vector<T>& target)
 {
     if (target.size() <= 1)
-        return;
+        return target;
     
-    T temp;
+    std::vector<T> result = target;
+    
     for (unsigned int i = 0; i < target.size(); i++)
     {
         int new_pos = randint(0, target.size()-1, i);
-        temp = target[i];
-        target[i] = target[new_pos];
-        target[new_pos] = temp;
+        T temp = result[i];
+        result[i] = result[new_pos];
+        result[new_pos] = temp;
     }
+
+    return result;
 }
 
 
