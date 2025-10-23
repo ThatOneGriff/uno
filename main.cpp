@@ -19,11 +19,6 @@
 int main()
 {
     std::cout << GREEN << "This is the start of this project.\n" << WHITE;
-    output(INITIAL_STACK);
-
-    std::vector<Card> shuffled_stack = shuffled(INITIAL_STACK);
-    std::cout << '\n';
-    output(shuffled_stack);
 
     return 0;
 }
