@@ -30,6 +30,7 @@ enum class Color
     White  = 7,  /// UI-only
     Any    = 16  /// = white. Useless in UI, cards-only.
 };
+const Color COLORS_RAINBOW_SORTED[4] = {Color::Red, Color::Yellow, Color::Green, Color::Blue};
 
 
 std::string tc(Color text_color)

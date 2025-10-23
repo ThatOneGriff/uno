@@ -28,13 +28,13 @@ unsigned int randint(const unsigned int min, const unsigned int max, unsigned in
     }
 
     /// Checking the limits' validity
-    if (max <  min) std::cerr << RED << "Incorrect use of `randint(u, u, [i])`: wrong parameter order (" << min << " and " << max << ")." << WHITE;
+    if (max <  min) std::cerr << RED << "Incorrect use of `randint(u, u, [u])`: wrong parameter order (" << min << " and " << max << ")." << WHITE;
     if (max == min)
     {
         if (exclusion == UINT_MAX)
             return min;
         else /// Exclusion blocks execution (i.e. `min` = 1, `max` = 1, `exclusion` = 1)
-            std::cerr << RED << "Incorrect use of `randint(u, u, i)`: exclusion blocks execution with arguments " << min << " and " << max << '.' << WHITE;
+            std::cerr << RED << "Incorrect use of `randint(u, u, u)`: exclusion blocks execution with arguments " << min << " and " << max << '.' << WHITE;
     }
 
 

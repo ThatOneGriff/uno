@@ -19,15 +19,8 @@
 int main()
 {
     std::cout << GREEN << "This is the start of this project.\n" << WHITE;
-    std::vector<int> a = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
-    output(a);
 
-    // Shuffle test
-    for (int i = 0; i < 5; i++)
-    {
-        shuffle(a);
-        output(a);
-    }
+    output(INITIAL_STACK);
 
     return 0;
 }
