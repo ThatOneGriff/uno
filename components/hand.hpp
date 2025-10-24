@@ -11,17 +11,16 @@
 struct Hand
 {
 public:
-    /// Init = drawing 7 cards. IDEA: consider it may be changeable by game rules.
-    Hand(std::vector<Card*>& game_stack)
+    Hand(std::vector<Card*>& draw_pile, const unsigned int draw_amount = 7)
     {
         cards.reserve(TOTAL_CARDS);
-        for (unsigned int i = 0; i < 7; i++)
-            cards.push_back(game_stack[i]);
+        for (unsigned int i = 0; i < draw_amount; i++)
+            cards.push_back(draw_pile[i]);
 
-        game_stack.erase(game_stack.begin(), game_stack.begin() + 7); /// UNTESTED
+        draw_pile.erase(draw_pile.begin(), draw_pile.begin() + 7); /// UNTESTED
     }
 
-    void add(); // + sort
+    void add(); // sort when adding
 
 private:
     std::vector<Card*> cards = {};

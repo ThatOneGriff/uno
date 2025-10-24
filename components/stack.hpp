@@ -4,26 +4,30 @@
 
 #include <vector>
 
-#include "../helpers/helpers.hpp"
 #include "card.hpp"
+#include "../helpers/helpers.hpp"
+#include "../helpers/random.hpp"
 
 /// Here be:
 
-std::vector<Card*>      _init_stack();
-const std::vector<Card*> INITIAL_STACK = _init_stack();
+std::vector<Card*> _init_deck();
+const std::vector<Card*> DECK = _init_deck();
 
 
-/// Used for initializing `ORIGINAL_STACK`, unshuffled. Should not be used otherwise.
-std::vector<Card*> _init_stack()
+/// Used for ordered initialization of `DECK`. Should not be used otherwise.
+std::vector<Card*> _init_deck()
 {
-    std::vector<Card*> result;
-    result.reserve(TOTAL_CARDS);
+    if (! DECK.empty())
+        std::cerr << RED << ">> `_init_deck(v)` should not be used manually." << WHITE;
+    
+    std::vector<Card*> deck;
+    deck.reserve(TOTAL_CARDS);
     
     /// "0" (x4). I was surprised.
     for (unsigned int j = 0; j < 4; j++)
     {
         Card* card = new Card('0', COLORS_RAINBOW_SORTED[j]);
-        result.push_back(card);
+        deck.push_back(card);
     }
     
     /// Regular numbers (x8)
@@ -32,7 +36,7 @@ std::vector<Card*> _init_stack()
         for (unsigned int j = 0; j < 8; j++)
         {
             Card* card = new Card(type, COLORS_RAINBOW_SORTED[j/2]); /// `j/2` so that the colors line up
-            result.push_back(card);
+            deck.push_back(card);
         }
     }
 
@@ -44,7 +48,7 @@ std::vector<Card*> _init_stack()
         for (unsigned int j = 0; j < 8; j++)
         {
             Card* card = new Card(type, COLORS_RAINBOW_SORTED[j/2]); /// `j/2` so that the colors line up
-            result.push_back(card);
+            deck.push_back(card);
         }
     }
 
@@ -52,10 +56,10 @@ std::vector<Card*> _init_stack()
     for (unsigned int j = 0; j < 4; j++)
     {
         Card* card = new Card(PLUS_4, COLORS_RAINBOW_SORTED[j]);
-        result.push_back(card);
+        deck.push_back(card);
     }
     
-    return result;
+    return deck;
 }
 
 

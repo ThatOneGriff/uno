@@ -42,7 +42,7 @@ struct Card
     : type(_type), color(_color)
     {
         if (CARD_TYPE_FULL_NAMES.find(_type) == CARD_TYPE_FULL_NAMES.end())
-            std::cerr << RED << "Unknown short card type: " << type << "." << WHITE;
+            std::cerr << RED << ">> Unknown short card type: " << type << "." << WHITE;
     }
 
     friend std::ostream& operator<<(std::ostream& outstream, const Card& card)

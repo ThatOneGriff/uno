@@ -23,11 +23,14 @@ int main()
 {
     //std::cout << GREEN << "This is the start of this project.\n" << WHITE;
 
-    output(INITIAL_STACK);
-    std::cout << '\n';
+    /* Preparing the cards */
+    std::vector<Card*> draw_pile = shuffled(DECK);
+    std::vector<Card*> discard_pile = {};
+    discard_pile.reserve(108);
 
-    std::vector<Card*> game_stack = shuffled(INITIAL_STACK);
-    output(game_stack);
+    //output(DECK);
+    //std::cout << '\n';
+    //output(draw_pile);
 
     return 0;
 }
