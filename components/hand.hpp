@@ -37,7 +37,7 @@ public:
             draw_pile->pop_back();
         }
 
-        //draw_pile->erase(draw_pile->begin(), draw_pile->begin() + draw_amount); // DEPRECATED; NOT TESTED EITHER
+        //std::sort(cards.begin(), cards.end(), Card::operator<);
     }
     
     /// WARNING: will probably break if there's nothing to draw.
@@ -51,10 +51,13 @@ public:
                 break;
             draw_pile->pop_back(); // UNTESTED
         }
+
+        std::sort(cards.begin(), cards.end(), Card::operator<);
     }
 
     void show_info()
     {
+        std::cout << (cards[1] < cards[2]);
         output(cards);
     }
 

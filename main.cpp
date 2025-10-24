@@ -13,10 +13,12 @@
 
 /*
 = TODOs:
+- rename `tc()`
 - A block-scheme of how I play Uno (?)
 
 = IDEAs:
 - Different `Hand` classes for bot and player?
+- Peeping mechanic (fine if noticed: +2 cards)
 */
 
 

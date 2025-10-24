@@ -45,30 +45,51 @@ struct Card
             std::cerr << RED << ">> Unknown short card type: " << type << "." << WHITE;
     }
 
-    friend std::ostream& operator<<(std::ostream& outstream, const Card& card)
+    bool operator<(const Card& card2)
     {
-        tc(card.color);
-        outstream << CARD_TYPE_FULL_NAMES.at(card.type) << WHITE;
+        return true;
+        //if (this == card2)
+        //    return false;
+        //
+        ////else if (this->type != card2->type) /// Type comparison has a higher priority.
+        //
+        //else/* if (this->color != card2->color)*/ /// Color comparison
+        //{
+        //    return find(this->color, COLORS_RAINBOW_SORTED) < find(this->color, COLORS_RAINBOW_SORTED);
+        //}
+    }
+
+    //bool operator>(Card* card2)
+    //{
+    //    if (this == card2)
+    //        return false;
+    //    
+    //    //else if (this->type != card2->type) /// Type comparison has a higher priority.
+    //
+    //    else/* if (this->color != card2->color)*/ /// Color comparison
+    //    {
+    //        return find(this->color, COLORS_RAINBOW_SORTED) > find(this->color, COLORS_RAINBOW_SORTED);
+    //    }
+    //}
+
+    friend std::ostream& operator<<(std::ostream& outstream, Card* card)
+    {
+        tc(card->color);
+        outstream << CARD_TYPE_FULL_NAMES.at(card->type) << WHITE;
         return outstream;
     }
-
-    std::string out()
-    {
-        tc(color);
-        return CARD_TYPE_FULL_NAMES.at(type);
-    }
-
-    bool operator==(const Card& to_compare)
-    {
-        return type  == to_compare.type
-            && color == to_compare.color;
-    }
     
-    Card& operator=(const Card& to_set_as)
+    Card* operator=(Card* set_as)
     {
-        type  = to_set_as.type;
-        color = to_set_as.color;
-        return *this;
+        type  = set_as->type;
+        color = set_as->color;
+        return this;
+    }
+
+    bool operator==(Card* to_compare)
+    {
+        return type  == to_compare->type
+            && color == to_compare->color;
     }
 };
 
