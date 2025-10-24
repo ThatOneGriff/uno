@@ -21,7 +21,7 @@ const std::unordered_map<char, std::string> CARD_TYPE_FULL_NAMES =
 /// Here be:
 
 struct Card;
-bool can_stack(const Card& card1, const Card& card2);
+bool can_stack(Card* card1, Card* card2);
 
 
 struct Card
@@ -74,12 +74,12 @@ struct Card
 
 
 /// UNTESTED
-bool can_stack(const Card& card1, const Card& card2)
+bool can_stack(Card* card1, Card* card2)
 {
-    if (card1.type == 'A' && card2.type == 'A') return true; /// "Any" stacks on "Any"
-    if (in(card1.type, {PLUS_2, PLUS_4}) && in(card1.type, {PLUS_2, PLUS_4})) return true; /// "+" cards stack on "+" cards
-    return card1.type  == card2.type
-        || card1.color == card2.color;
+    //if (card1->type == 'A' && card2->type == 'A') return true; /// "Any" stacks on "Any" // WARNING: may be redundant, since types equal in the condition
+    if (in(card1->type, {PLUS_2, PLUS_4}) && in(card1->type, {PLUS_2, PLUS_4})) return true; /// "+" cards stack on "+" cards
+    return card1->type  == card2->type
+        || card1->color == card2->color;
 }
 
 

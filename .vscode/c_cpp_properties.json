@@ -10,7 +10,7 @@
             "cppStandard": "c++26",
             "intelliSenseMode": "windows-gcc-x64",
             "compilerArgs": [
-                ""
+                "-std=gnu++26"
             ],
             "browse": {
                 "path": [

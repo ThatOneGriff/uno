@@ -4,6 +4,7 @@
 
 #include "components/card.hpp"
 #include "components/character.hpp"
+#include "components/hand.hpp"
 #include "components/stack.hpp"
 
 #include "helpers/ui.hpp"
@@ -25,12 +26,10 @@ int main()
 
     /* Preparing the cards */
     std::vector<Card*> draw_pile = shuffled(DECK);
+    Hand::draw_pile = &draw_pile;
+
     std::vector<Card*> discard_pile = {};
     discard_pile.reserve(108);
-
-    //output(DECK);
-    //std::cout << '\n';
-    //output(draw_pile);
 
     return 0;
 }
