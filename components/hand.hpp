@@ -15,8 +15,9 @@ struct Hand
 {
 public:
     bool character_type; /// NOTE: non-const because hand swap exists.
-    inline static std::vector<Card*>* draw_pile; /// Draw pile pointer for any-time access.
-    //static int* a;
+    /// Pile pointers for any-time access. Ignore warnings.
+    inline static std::vector<Card*>* draw_pile;
+    inline static std::vector<Card*>* discard_pile;
 
     Hand()
     {
@@ -30,43 +31,64 @@ public:
         else if (draw_amount > draw_pile->size())
             draw_amount = draw_pile->size();
 
-        for (unsigned int i = 0; i < draw_amount; i++)
-            cards.push_back((*draw_pile)[i]);
+        for (unsigned int i = 1; i <= draw_amount; i++) /// `i` is merely an iterator here; we `pop_back()` instead of accessing a position through `i`.
+        {
+            cards.push_back((*draw_pile)[draw_pile->size()-1]);
+            draw_pile->pop_back();
+        }
 
-        draw_pile->erase(draw_pile->begin(), draw_pile->begin() + draw_amount); /// UNTESTED
+        //draw_pile->erase(draw_pile->begin(), draw_pile->begin() + draw_amount); // DEPRECATED; NOT TESTED EITHER
     }
     
     /// WARNING: will probably break if there's nothing to draw.
     void draw_until(Card* to_parry) // sort when adding
     {
-        unsigned int i = 0;
-        for ( ; i < draw_pile->size(); i++)
+        for (unsigned int i = 1; i <= draw_pile->size(); i++) /// `i` is merely an iterator here; we `pop_back()` instead of accessing a position through `i`.
         {
-            Card* drawn = (*draw_pile)[i];
+            Card* drawn = (*draw_pile)[draw_pile->size()-1];
             cards.push_back(drawn);
             if (can_stack(to_parry, drawn))
                 break;
+            draw_pile->pop_back(); // UNTESTED
         }
-
-        draw_pile->erase(draw_pile->begin(), draw_pile->begin() + i); /// UNTESTED
     }
 
-    //std::vector<Card*> parry(Card* to_parry)
-    //{
-    //    if (! has_ca)
-    //}
+    void show_info()
+    {
+        output(cards);
+    }
+
+    void parry(Card* to_parry)
+    {
+        std::vector<Card*> cards = find_cards_to_parry(to_parry);
+        if (cards.empty())
+            draw_until(to_parry);
+        
+        cards = find_cards_to_parry(to_parry);
+        discard_pile->insert(discard_pile->end(), cards.begin(), cards.end());
+    }
 
 private:
     std::vector<Card*> cards = {};
 
-    bool has_cards_to_parry(Card* to_parry)
+    std::vector<Card*> find_cards_to_parry(Card* to_parry)
     {
-        for (Card* curr_card : cards)
+        std::vector<Card*> result = {};
+
+        Card* to_stack_on = to_parry; /// So the bot can throw multiple cards.
+        /// IDEA: could be binary search (if we sort hand automatically).
+        for (unsigned int i = 0; i < cards.size(); i++)
         {
-            if (can_stack(to_parry, curr_card))
-                return true;
+            Card* curr_card = cards[i];
+            if (! can_stack(to_stack_on, curr_card))
+                continue;
+            
+            result.push_back(curr_card);
+            cards.erase(cards.begin() + i);
+            to_stack_on = curr_card;
         }
-        return false;
+
+        return result;
     }
 };
 

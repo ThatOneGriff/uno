@@ -15,27 +15,32 @@ class Player;
 class Character
 {
 public:
+    Hand hand;
+
     Character()
     {}
 
     virtual void parry(Card* to_parry) = 0;
-
-protected:
-    Hand hand;
+    virtual void show_info() = 0;
 };
 
 
 class Bot : public Character
 {
 public:
-    Bot(std::vector<Card*>& _draw_pile)
+    Bot()
     {
         hand.character_type = BOT_HAND;
     }
 
     void parry(Card* to_parry)
     {
+        hand.parry(to_parry);
+    }
 
+    void show_info()
+    {
+        hand.show_info();
     }
 };
 
