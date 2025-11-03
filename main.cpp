@@ -4,8 +4,8 @@
 
 #include "components/card.hpp"
 #include "components/character.hpp"
+#include "components/deck_init.hpp"
 #include "components/hand.hpp"
-#include "components/stack.hpp"
 
 #include "helpers/ui.hpp"
 #include "helpers/random.hpp"
@@ -13,7 +13,6 @@
 
 /*
 = TODOs:
-- rename `tc()`
 - A block-scheme of how I play Uno (?)
 
 = IDEAs:
@@ -24,26 +23,30 @@
 
 int main()
 {
-    //std::cout << GREEN << "This is the start of this project.\n" << WHITE;
-
     /* Preparing the cards */
-    /// IMPORTANT: top of the pile is vector's back.
     std::vector<Card*> draw_pile = shuffled(DECK);
-    Hand::draw_pile = &draw_pile;
-    output(draw_pile); // TEST
-    std::cout << '\n';
-
     std::vector<Card*> discard_pile = {};
     discard_pile.reserve(108);
+
+    Hand::draw_pile = &draw_pile;
     Hand::discard_pile = &discard_pile;
 
     Bot bot;
-    bot.hand.draw(7);
+    Player player;
 
-    // TEST
+    std::cout << "- Bot: ";
     bot.show_info();
-    std::cout << '\n';
-    output(draw_pile);
+    std::cout << "- You: ";
+    player.show_info();
+
+    std::string code;
+    while (true)
+    {
+        std::cout << "\n> ";
+        std::cin >> code;
+        Card* card = code_to_card(code);
+        std::cout << card;
+    }
 
     return 0;
 }

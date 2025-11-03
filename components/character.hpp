@@ -18,7 +18,9 @@ public:
     Hand hand;
 
     Character()
-    {}
+    {
+        hand.draw(7);
+    }
 
     virtual void parry(Card* to_parry) = 0;
     virtual void show_info() = 0;
@@ -29,9 +31,25 @@ class Bot : public Character
 {
 public:
     Bot()
+    {}
+
+    void parry(Card* to_parry)
     {
-        hand.character_type = BOT_HAND;
+        hand.parry(to_parry);
     }
+
+    void show_info()
+    {
+        hand.show_info();
+    }
+};
+
+
+class Player : public Character
+{
+public:
+    Player()
+    {}
 
     void parry(Card* to_parry)
     {

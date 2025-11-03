@@ -10,16 +10,16 @@
 /// Here be:
 
 enum class Color;
-std::string tc(Color text_color);
+std::string textcolor(Color text_color);
 
 
 /// Color insertion into `cout`.
 /// - Example: `cout << GREEN << "Hi!";
-#define RED     tc(Color::Red)
-#define YELLOW  tc(Color::Yellow)
-#define GREEN   tc(Color::Green)
-#define BLUE    tc(Color::Blue)
-#define WHITE   tc(Color::White)
+#define RED     textcolor(Color::Red)
+#define YELLOW  textcolor(Color::Yellow)
+#define GREEN   textcolor(Color::Green)
+#define BLUE    textcolor(Color::Blue)
+#define WHITE   textcolor(Color::White)
 
 
 enum class Color
@@ -29,12 +29,12 @@ enum class Color
     Green  = 10,
     Blue   = 11,
     White  = 7,  /// UI-only
-    Any    = 16  /// = white. Useless in UI, cards-only.
+    Any    = 7   /// Cards-only
 };
 const std::vector<Color> COLORS_RAINBOW_SORTED = {Color::Red, Color::Yellow, Color::Green, Color::Blue};
 
 
-std::string tc(Color text_color)
+std::string textcolor(Color text_color)
 {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int)text_color);
     return std::string(); /// for insertion into `cout`

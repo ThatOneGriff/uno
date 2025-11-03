@@ -14,7 +14,7 @@ const std::unordered_map<char, std::string> CARD_TYPE_FULL_NAMES =
 {
     {'0', "0"}, {'1', "1"}, {'2', "2"}, {'3', "3"}, {'4', "4"},
     {'5', "5"}, {'6', "6"}, {'7', "7"}, {'8', "8"}, {'9', "9"},
-    {'A', "Any"}, {'B', "Block"}, {'R', "Reverse"},
+    {'A', "Any"}, {'S', "Swap"}, {'B', "Block"}, {'R', "Reverse"},
     {PLUS_2, "+2"}, {PLUS_4, "+4"}
 };
 
@@ -22,7 +22,7 @@ const std::unordered_map<char, std::string> CARD_TYPE_FULL_NAMES =
 
 struct Card;
 bool can_stack(Card* card1, Card* card2);
-
+Card code_to_card(const std::string& code);
 
 struct Card
 {
@@ -45,19 +45,19 @@ struct Card
             std::cerr << RED << ">> Unknown short card type: " << type << "." << WHITE;
     }
 
-    bool operator<(const Card& card2)
-    {
-        return true;
-        //if (this == card2)
-        //    return false;
-        //
-        ////else if (this->type != card2->type) /// Type comparison has a higher priority.
-        //
-        //else/* if (this->color != card2->color)*/ /// Color comparison
-        //{
-        //    return find(this->color, COLORS_RAINBOW_SORTED) < find(this->color, COLORS_RAINBOW_SORTED);
-        //}
-    }
+    //bool operator<(Card* card2)
+    //{
+    //    return true;
+    //    //if (this == card2)
+    //    //    return false;
+    //    //
+    //    ////else if (this->type != card2->type) /// Type comparison has a higher priority.
+    //    //
+    //    //else/* if (this->color != card2->color)*/ /// Color comparison
+    //    //{
+    //    //    return find(this->color, COLORS_RAINBOW_SORTED) < find(this->color, COLORS_RAINBOW_SORTED);
+    //    //}
+    //}
 
     //bool operator>(Card* card2)
     //{
@@ -74,7 +74,7 @@ struct Card
 
     friend std::ostream& operator<<(std::ostream& outstream, Card* card)
     {
-        tc(card->color);
+        textcolor(card->color);
         outstream << CARD_TYPE_FULL_NAMES.at(card->type) << WHITE;
         return outstream;
     }
@@ -91,16 +91,60 @@ struct Card
         return type  == to_compare->type
             && color == to_compare->color;
     }
+
+    bool operator==(const Card& to_compare)
+    {
+        return type  == to_compare.type
+            && color == to_compare.color;
+    }
 };
 
 
-/// UNTESTED
 bool can_stack(Card* card1, Card* card2)
 {
     //if (card1->type == 'A' && card2->type == 'A') return true; /// "Any" stacks on "Any" // WARNING: may be redundant, since types equal in the condition
     if (in(card1->type, {PLUS_2, PLUS_4}) && in(card1->type, {PLUS_2, PLUS_4})) return true; /// "+" cards stack on "+" cards
     return card1->type  == card2->type
         || card1->color == card2->color;
+}
+
+
+const Card NULL_CARD('\0', Color::Any);
+Card code_to_card(const std::string& code)
+{
+    int i = 0;
+    char type = code[i++];
+    if (type == '+')
+    {
+        if (code[i] == 2)
+            type = PLUS_2; // +2
+        else if (code[i] == 4)
+            type = PLUS_4; // +4
+        else return NULL_CARD;
+        ++i;
+    }
+
+    const char color_code = code[i];
+    Color color;
+    switch (color_code)
+    {
+    case 'R':
+        color = Color::Red;
+        break;
+    case 'Y':
+        color = Color::Yellow;
+        break;
+    case 'G':
+        color = Color::Green;
+        break;
+    case 'B':
+        color = Color::Blue;
+        break;
+    default:
+        return NULL_CARD;
+    }
+
+    return Card(type, color);
 }
 
 
